@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conexo Pirata</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Conexo Pirata</h1>
+      <div class="game-setup">
+        <h2>Crie seus grupos</h2>
+        <div class="word-inputs">
+          <div class="word-group">
+            <h3>Grupo 1</h3>
+            <input
+              type="text"
+              class="group-name"
+              placeholder="Conexo das palavras"
+            />
+            <input type="text" class="word-input" placeholder="Palavra 1" />
+            <input type="text" class="word-input" placeholder="Palavra 2" />
+            <input type="text" class="word-input" placeholder="Palavra 3" />
+            <input type="text" class="word-input" placeholder="Palavra 4" />
+          </div>
+          <div class="word-group">
+            <h3>Grupo 2</h3>
+            <input
+              type="text"
+              class="group-name"
+              placeholder="Conexo das palavras"
+            />
+            <input type="text" class="word-input" placeholder="Palavra 1" />
+            <input type="text" class="word-input" placeholder="Palavra 2" />
+            <input type="text" class="word-input" placeholder="Palavra 3" />
+            <input type="text" class="word-input" placeholder="Palavra 4" />
+          </div>
+          <div class="word-group">
+            <h3>Grupo 3</h3>
+            <input
+              type="text"
+              class="group-name"
+              placeholder="Conexo das palavras"
+            />
+            <input type="text" class="word-input" placeholder="Palavra 1" />
+            <input type="text" class="word-input" placeholder="Palavra 2" />
+            <input type="text" class="word-input" placeholder="Palavra 3" />
+            <input type="text" class="word-input" placeholder="Palavra 4" />
+          </div>
+          <div class="word-group">
+            <h3>Grupo 4</h3>
+            <input
+              type="text"
+              class="group-name"
+              placeholder="Conexo das palavras"
+            />
+            <input type="text" class="word-input" placeholder="Palavra 1" />
+            <input type="text" class="word-input" placeholder="Palavra 2" />
+            <input type="text" class="word-input" placeholder="Palavra 3" />
+            <input type="text" class="word-input" placeholder="Palavra 4" />
+          </div>
+        </div>
+        <div class="share-options">
+          <button id="startGame">Iniciar Jogo</button>
+          <button id="copyCode" style="display: none">Copiar Código</button>
+        </div>
+      </div>
+      <div class="load-game">
+        <h2>Carregar Jogo</h2>
+        <input
+          type="text"
+          id="gameCode"
+          placeholder="Digite o código do jogo"
+        />
+        <button id="loadGame">Carregar</button>
+      </div>
+      <div class="game-board" style="display: none">
+        <div class="completed-groups"></div>
+        <div class="grid-container"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
