@@ -11,6 +11,14 @@
       <h1>Conexo Pirata</h1>
       <div class="game-setup">
         <h2>Crie seus grupos</h2>
+        <div class="code-status">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span class="status-text"
+              >Aguardando preenchimento dos grupos para gerar o código...</span
+            >
+          </div>
+        </div>
         <div class="word-inputs">
           <div class="word-group">
             <h3>Grupo 1</h3>
@@ -68,12 +76,14 @@
       </div>
       <div class="load-game">
         <h2>Carregar Jogo</h2>
-        <input
-          type="text"
-          id="gameCode"
-          placeholder="Digite o código do jogo"
-        />
-        <button id="loadGame">Carregar</button>
+        <div class="load-game-container">
+          <input
+            type="text"
+            id="gameCode"
+            placeholder="Digite o código do jogo"
+          />
+          <button id="loadGame">Carregar</button>
+        </div>
       </div>
       <div class="game-board" style="display: none">
         <div class="completed-groups"></div>
