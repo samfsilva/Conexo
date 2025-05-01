@@ -29,6 +29,13 @@ class ConexoGame {
         this.updateShareCode();
       });
     });
+
+    const groupNameInputs = document.querySelectorAll(".group-name");
+    groupNameInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        this.checkAllFields();
+      });
+    });
   }
 
   checkForSavedGame() {
@@ -41,6 +48,24 @@ class ConexoGame {
     }
   }
 
+  checkAllFields() {
+    const allWords = Array.from(document.querySelectorAll(".word-input")).map(
+      (input) => input.value.trim()
+    );
+    const allNames = Array.from(document.querySelectorAll(".group-name")).map(
+      (input) => input.value.trim()
+    );
+    const allFieldsFilled =
+      allWords.every((word) => word !== "") &&
+      allNames.every((name) => name !== "");
+
+    if (allFieldsFilled) {
+      document.getElementById("copyCodeHint").style.display = "block";
+    } else {
+      document.getElementById("copyCodeHint").style.display = "none";
+    }
+  }
+
   updateShareCode() {
     const allWords = Array.from(document.querySelectorAll(".word-input")).map(
       (input) => input.value.trim()
@@ -49,14 +74,14 @@ class ConexoGame {
       (input) => input.value.trim()
     );
 
-    // Verificar se todos os campos estão preenchidos
     const allFieldsFilled =
       allWords.every((word) => word !== "") &&
       allNames.every((name) => name !== "");
-
-    // Verificar palavras duplicadas
     const uniqueWords = new Set(allWords.map((word) => word.toLowerCase()));
     const hasDuplicates = uniqueWords.size !== allWords.length;
+
+    const statusDot = document.querySelector(".status-dot");
+    const statusText = document.querySelector(".status-text");
 
     if (allFieldsFilled && !hasDuplicates) {
       const gameData = {
@@ -65,16 +90,27 @@ class ConexoGame {
       };
       this.currentCode = btoa(JSON.stringify(gameData));
       document.getElementById("copyCode").style.display = "block";
+
+      statusDot.classList.add("ready");
+      statusText.textContent = "Código pronto para compartilhar!";
     } else {
       this.currentCode = null;
       document.getElementById("copyCode").style.display = "none";
+
+      statusDot.classList.remove("ready");
+      if (!allFieldsFilled) {
+        statusText.textContent = "Aguardando preenchimento dos grupos...";
+      } else if (hasDuplicates) {
+        statusText.textContent =
+          "Remova as palavras duplicadas para gerar o código";
+      }
     }
   }
 
   copyShareCode() {
     if (this.currentCode) {
       navigator.clipboard.writeText(this.currentCode).then(() => {
-        alert("Código copiado! Compartilhe com seus amigos!");
+        alert("Código copiado!");
       });
     }
   }
@@ -165,6 +201,7 @@ class ConexoGame {
   }
 
   startGame() {
+    document.querySelector(".load-game").style.display = "none";
     // Coletar todas as palavras dos inputs
     const inputs = document.querySelectorAll(".word-input");
     this.words = Array.from(inputs)
@@ -211,7 +248,7 @@ class ConexoGame {
   }
 
   highlightAllDuplicates() {
-    const inputs = document.querySelectorAll(".word-input");
+    const inputs = document.querySelectorAll(".word-card");
     const wordCounts = new Map();
 
     // Contar ocorrências de cada palavra
@@ -294,6 +331,7 @@ class ConexoGame {
       if (this.correctGroups.length === 4) {
         setTimeout(() => {
           alert("Parabéns! Você completou o jogo!");
+          this.resetGame();
         }, 500);
       }
     } else {
@@ -369,6 +407,31 @@ class ConexoGame {
       card.classList.remove("selected");
       card.style.transform = "scale(1)";
     });
+  }
+
+  resetGame() {
+    // Limpar todos os campos
+    document.querySelectorAll(".word-input, .group-name").forEach((input) => {
+      input.value = "";
+    });
+    this.words = [];
+    this.groups = [];
+    this.groupNames = [];
+    this.selectedWords = [];
+    this.correctGroups = [];
+    this.currentCode = null;
+
+    // Resetar o status do código
+    const statusDot = document.querySelector(".status-dot");
+    const statusText = document.querySelector(".status-text");
+    statusDot.classList.remove("ready");
+    statusText.textContent = "Aguardando preenchimento dos grupos...";
+
+    // Voltar para a tela inicial
+    document.querySelector(".game-setup").style.display = "block";
+    document.querySelector(".game-board").style.display = "none";
+    document.querySelector(".load-game").style.display = "block";
+    document.getElementById("copyCode").style.display = "none";
   }
 }
 
